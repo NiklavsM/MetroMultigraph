@@ -5,12 +5,10 @@ public class Driver {
 	public static void main(String[] args) {		
 		MetroMapParser mmp;
 		MetroMap metroMap = null;
-		try {
-			System.out.println("System.getProperty(\"user.dir\");" + System.getProperty("user.dir"));
+		try{
 			mmp = new MetroMapParser("bostonmetro.txt");
 		    metroMap = mmp.generateGraphFromFile();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		metroMap.findBestRoute("Riverside", "Mattapan"); // maybe can store stations immediately good
