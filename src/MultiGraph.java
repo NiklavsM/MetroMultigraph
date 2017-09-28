@@ -1,88 +1,83 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
+import java.util.*;
 
-public class MultiGraph implements IGraph { // Maybe graph could hold node ids..
+public class MultiGraph implements IMultiGraph { // Maybe graph could hold node ids..
 
-	private ArrayList<Edge> listOfEdges = new ArrayList<>(); // make it HashSet
-	private ArrayList<Node> listOfNodes = new ArrayList<Node>();// make it HashSet
+    private List<IEdge> listOfEdges = new ArrayList<>(); // make it HashSet
+    private List<INode> listOfNodes = new ArrayList<>();// make it HashSet
 
-	public void addEdge(Edge edge){
-		listOfEdges.add(edge);
-	}
+    public void addEdge(IEdge edge) {
+        listOfEdges.add(edge);
+    }
 
-	public void addNode(int id, String name) {
-		listOfNodes.add(new Node(id, name));		
-	}
+    public void addNode(INode node) {
+        listOfNodes.add(node);
+    }
 
-	public Node getNodeById(int id){
-		for(Node node : listOfNodes){
-			if(node.getId() == id){
-				return node;
-			}
-		}
-		return null;
-	}
+    public INode getNodeById(int id) {
+        for (INode node : listOfNodes) {
+            if (node.getId() == id) {
+                return node;
+            }
+        }
+        return null;
+    }
 
-	public Node getNodeByName(String name){
-		for(Node node : listOfNodes){
-			if(node.getName().equals(name)){
-				return node;
-			}
-		}
-		return null;
-	}
+    public Vector<INode> findShortestPath(INode from, INode to) {
+        boolean[] visitedNodes = new boolean[listOfNodes.size() + 1];
+        HashMap<Integer, Vector<INode>> pathsToNodes = new HashMap<>();
+        //String[] pathsToNodes = new String[listOfNodes.size()];
+        LinkedList<INode> nodesToVisit = new LinkedList<>();
 
-	public String[] findShortestPath(int from, int to){
-		boolean[] visitedNodes = new boolean[listOfNodes.size()+1];
-		String[] pathsToNodes = new String[listOfNodes.size()+1];
-		LinkedList<Integer> nodesToVisit = new LinkedList<Integer>();
+        nodesToVisit.add(from);
+        //pathsToNodes[from.getId()] = from.getId() + " ";
+        Vector<INode> vector = new Vector<>();
+        vector.add(from);
+        pathsToNodes.put(from.getId(), vector);
+        while (nodesToVisit.peek() != null) {
+            if (searchBSF(nodesToVisit.poll(), to, visitedNodes, pathsToNodes, nodesToVisit)) {
+                break;
+            }
+        }
+//        System.out.println(Arrays.toString(pathsToNodes[to.getId()].split(" ")));
+//        String[]tempString = pathsToNodes[to.getId()].split(" ");
 
-		nodesToVisit.add(from);
-		pathsToNodes[from] = from + " ";
-		while(nodesToVisit.peek() != null) {
-			if(searchBSF(nodesToVisit.poll(), to, visitedNodes, pathsToNodes, nodesToVisit)){
-				break;
-			};
-		}
-		return pathsToNodes[to].split(" ");
-	}
+        // return pathsToNodes[to.getId()].split(" ");
+        return pathsToNodes.get(to.getId());
+    }
 
-	private boolean searchBSF(int from, int to, boolean[] visitedNodes, String[] pathsToNodes, LinkedList<Integer> nodesToVisit){
-		if(!visitedNodes[from]){
-			if(from == to){
-				return true;
-			}
-			else {
-				//System.out.println("HERE 2");
-				visitedNodes[from] = true;
-				ArrayList<Integer> adjacentNodes = findAdjacentNodes(from);
-				for(Integer node : adjacentNodes){
-					//System.out.println(Arrays.toString(pathsToNodes));
-					if(pathsToNodes[node] == null){
-					pathsToNodes[node] = pathsToNodes[from] + node + " ";
-					nodesToVisit.add(node);
-					}
-				}
-			}
-		}
-		return false;
-	}
+    private boolean searchBSF(INode nodeFrom, INode nodeTo, boolean[] visitedNodes, HashMap<Integer, Vector<INode>> pathsToNodes, LinkedList<INode> nodesToVisit) {
+        int nodeFromId = nodeFrom.getId();
+        int nodeToId = nodeTo.getId();
+        if (!visitedNodes[nodeFromId]) {
+            if (nodeFromId == nodeToId) {
+                return true;
+            } else {
+                //System.out.println("HERE 2");
+                visitedNodes[nodeFromId] = true;
+                List<INode> adjacentNodes = findAdjacentNodes(nodeFrom);
+                for (INode node : adjacentNodes) {
+                    if (pathsToNodes.get(node.getId()) == null) {
+                        Vector<INode> vector = new Vector(pathsToNodes.get(nodeFromId));
+                        vector.add(node);
+                        pathsToNodes.put(node.getId(), vector);
+                        nodesToVisit.add(node);
+                    }
+                }
+            }
+        }
+        return false;
+    }
 
-	private ArrayList<Integer> findAdjacentNodes(int from){
-		ArrayList<Integer> nodesFromNode = new ArrayList<Integer>();
-		for (Edge edge : listOfEdges){
-			if(edge.getFromNodeId() == from){
-				nodesFromNode.add(edge.getToNodeId());
-			}
-			if(edge.getToNodeId() == from){
-				nodesFromNode.add(edge.getFromNodeId());
-			}
-		}
-		return nodesFromNode;
-	}
-
-	public ArrayList<Edge> getListOfEdges(){
-		return listOfEdges;
-	}
+    private List<INode> findAdjacentNodes(INode nodeFrom) {
+        List<INode> nodesFromNode = new ArrayList<>();
+        for (IEdge edge : listOfEdges) {
+            if (edge.getFromNode().getId() == nodeFrom.getId()) {
+                nodesFromNode.add(edge.getToNode());
+            }
+            if (edge.getToNode().getId() == nodeFrom.getId()) {
+                nodesFromNode.add(edge.getFromNode());
+            }
+        }
+        return nodesFromNode;
+    }
 }
