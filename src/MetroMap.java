@@ -3,7 +3,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class MetroMap {
-	private Graph metroSystem = new MultiGraph();
+	private IGraph metroSystem = new MultiGraph();
 	private ArrayList<Station> stations = new ArrayList<Station>();
 
 	public void addStation(int id, String name){

@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public interface Graph {
+public interface IGraph {
 	public void addNode(int id, String name);
 	public void addEdge(Edge edge);
 	public String[] findShortestPath(int from, int to);

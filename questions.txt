@@ -1,0 +1,4 @@
+Questions (not to be marked)
+question/answer page
+
+Casting > Generics > Stupid code ?

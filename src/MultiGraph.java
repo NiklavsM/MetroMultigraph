@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 
-public class MultiGraph implements Graph { // Maybe graph could hold node ids..
+public class MultiGraph implements IGraph { // Maybe graph could hold node ids..
 
 	private ArrayList<Edge> listOfEdges = new ArrayList<>(); // make it HashSet
 	private ArrayList<Node> listOfNodes = new ArrayList<Node>();// make it HashSet
