@@ -1,18 +1,11 @@
-import java.io.IOException;
+public class MetroUserInterface {
+    public MetroUserInterface(MetroMap metroMap) {
+        runUserInterface(metroMap);
+    }
 
-public class Driver {
-
-	public static void main(String[] args) {		
-		MetroMapParser mmp;
-		MetroMap metroMap = null;
-		try{
-			mmp = new MetroMapParser("bostonmetro.txt");
-		    metroMap = mmp.generateGraphFromFile();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		metroMap.findBestRoute("119", "112"); // maybe can store stations immediately good
-		System.out.println();
+    private void runUserInterface(MetroMap map) {
+        map.findBestRoute("119", "112"); // maybe can store stations immediately good
+        System.out.println("gg who needs path.. that part is uncommented for now");
 //		metroMap.findBestRoute("Riverside", "Wonderland"); // kinda good
 //		System.out.println();
 //		metroMap.findBestRoute("Riverside", "Alewife"); //  kinda good
@@ -22,6 +15,5 @@ public class Driver {
 //		metroMap.findBestRoute("Riverside", "Bowdoin"); // kinda good (colors no good)
 //		System.out.println();
 //		metroMap.findBestRoute("Riverside", "BostonCollege"); //  perfect
-	}
-
+    }
 }

@@ -21,6 +21,14 @@ public class MultiGraph implements IMultiGraph { // Maybe graph could hold node 
         }
         return null;
     }
+    public INode getNodeByName(String name) {
+        for (INode node : listOfNodes) {
+            if (node.getName().equals(name)) {
+                return node;
+            }
+        }
+        return null;
+    }
 
     public Vector<INode> findShortestPath(INode from, INode to) {
         boolean[] visitedNodes = new boolean[listOfNodes.size() + 1];

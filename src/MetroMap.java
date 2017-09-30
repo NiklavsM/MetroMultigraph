@@ -27,27 +27,27 @@ public class MetroMap {
             stationToAdd.addColor(linkColor);
             metroSystem.addNode(stationToAdd);
         }
-        IEdge link = new MetroLink(linkColor, metroSystem.getNodeById(fromId), metroSystem.getNodeById(toId));
+        MetroLink link = new MetroLink(linkColor, getStationById(fromId), getStationById(toId)); // Ask which is better MetroLink or IEdge
         metroSystem.addEdge(link);
     }
 
     public void findBestRoute(String from, String to) {
-        INode stationFrom = metroSystem.getNodeById(new Integer(from));
-        INode stationTo = metroSystem.getNodeById(new Integer(to));
+        Station stationFrom = getStationById(new Integer(from));
+        Station stationTo = getStationById(new Integer(to));
 //        INode stationFrom = new Station(from);
 //        INode stationTo = new Station(to);
 
        // String[] route = metroSystem.findShortestPath(stationFrom, stationTo);
-        Vector<INode> nodes = metroSystem.findShortestPath(stationFrom, stationTo);
-        printRoute(nodes);
+        //Vector<Station> stations = (Vector<Station>)metroSystem.findShortestPath(stationFrom, stationTo);
+       // printRoute(stations);
     }
-    public void printRoute(Vector<INode> nodes){
-        System.out.println(nodes.toString());
-        for(INode node : nodes){
-            Station nodeTemp = (Station)node;
-            System.out.println(nodeTemp.getName());
-        }
-    }
+//    public void printRoute(Vector<?> stations){
+//        System.out.println(station.toString());
+//        for(Station station : stations){
+//            Station nodeTemp = (Station)node;
+//            System.out.println(nodeTemp.getName());
+//        }
+//    }
 
 //    public void printRoute(String[] route) { // Should tidy this up, maybe even seperate class for user inteface stuff NMS
 //        boolean needToChangeLine = true;
@@ -83,6 +83,9 @@ public class MetroMap {
 
     private Station getStationById(int id) {
         return (Station) metroSystem.getNodeById(id);
+    }
+    private Station getStationByName(String name) {
+        return (Station) metroSystem.getNodeByName(name);
     }
 
 }

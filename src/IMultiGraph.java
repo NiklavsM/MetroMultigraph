@@ -7,4 +7,5 @@ public interface IMultiGraph {
 	public void addEdge(IEdge edge);
 	public Vector<INode> findShortestPath(INode from, INode to);
 	public INode getNodeById(int id);
+	public INode getNodeByName(String name);
 }
