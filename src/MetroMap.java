@@ -8,7 +8,6 @@ public class MetroMap {
         if (station == null) {
             Station stationToAdd = new Station(id, name);
             metroSystem.addNode(stationToAdd);
-            //stations.add(station);}
         } else {
             station.setName(name);
         }
@@ -18,36 +17,64 @@ public class MetroMap {
         Station stationFrom = getStationById(fromId);
         Station stationTo = getStationById(toId);
         if (stationFrom == null) {
-            Station stationToAdd = new Station(fromId);
-            stationToAdd.addColor(linkColor);
-            metroSystem.addNode(stationToAdd);
+            stationFrom = new Station(fromId);
+            metroSystem.addNode(stationFrom);
         }
         if (stationTo == null) {
-            Station stationToAdd = new Station(toId);
-            stationToAdd.addColor(linkColor);
-            metroSystem.addNode(stationToAdd);
+            stationTo = new Station(toId);
+            metroSystem.addNode(stationTo);
         }
+        stationTo.addColor(linkColor);
+        stationFrom.addColor(linkColor);
         MetroLink link = new MetroLink(linkColor, getStationById(fromId), getStationById(toId)); // Ask which is better MetroLink or IEdge
         metroSystem.addEdge(link);
     }
 
     public void findBestRoute(String from, String to) {
-        Station stationFrom = getStationById(new Integer(from));
-        Station stationTo = getStationById(new Integer(to));
-//        INode stationFrom = new Station(from);
-//        INode stationTo = new Station(to);
+        INode stationFrom = getStationById(new Integer(from));
+        INode stationTo = getStationById(new Integer(to));
 
-       // String[] route = metroSystem.findShortestPath(stationFrom, stationTo);
-        //Vector<Station> stations = (Vector<Station>)metroSystem.findShortestPath(stationFrom, stationTo);
-       // printRoute(stations);
+        printRoute(metroSystem.findShortestPath(stationFrom, stationTo));
     }
-//    public void printRoute(Vector<?> stations){
-//        System.out.println(station.toString());
-//        for(Station station : stations){
-//            Station nodeTemp = (Station)node;
-//            System.out.println(nodeTemp.getName());
-//        }
-//    }
+
+    public void printRoute(Vector<INode> stations) {
+        String colorYoureOn = "";
+        System.out.println("Station from: " + stations.get(0).getName());
+        for (int i = 0; i < stations.size() - 2; i++) {
+
+            Station currentStation = getStationById(stations.get(i).getId());
+            if (colorYoureOn == "") {
+                colorYoureOn = currentStation.getStationColors().iterator().next();
+            }
+            Station nextStation = getStationById(stations.get(i + 1).getId());
+            Station stationAfterNextStation = getStationById(stations.get(i + 2).getId());
+            if (needToChangeLine(colorYoureOn, stationAfterNextStation)) {
+                colorYoureOn = findCommonColor(nextStation, stationAfterNextStation);
+                System.out.println("Change line at: \"" + nextStation.getName() + "\" switch to " + colorYoureOn + " line.");
+            } else {
+                System.out.println(" " + nextStation.getName());
+            }
+        }
+        System.out.println("Station to: " + stations.get(stations.size() - 1).getName());
+    }
+
+    private String findCommonColor(Station stationOne, Station stationTwo) {
+        for (String colorOne : stationOne.getStationColors()) {
+            for (String colorTwo : stationTwo.getStationColors()) {
+                if (colorOne.equals(colorTwo)) {
+                    return colorOne;
+                }
+            }
+        }
+        return "";
+    }
+
+    private boolean needToChangeLine(String currentColor, Station stationAfterNextStation) {
+        if (stationAfterNextStation.hasColor(currentColor)) {
+            return false;
+        } else return true;
+
+    }
 
 //    public void printRoute(String[] route) { // Should tidy this up, maybe even seperate class for user inteface stuff NMS
 //        boolean needToChangeLine = true;
@@ -84,6 +111,7 @@ public class MetroMap {
     private Station getStationById(int id) {
         return (Station) metroSystem.getNodeById(id);
     }
+
     private Station getStationByName(String name) {
         return (Station) metroSystem.getNodeByName(name);
     }

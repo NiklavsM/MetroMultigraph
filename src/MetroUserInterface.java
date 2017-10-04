@@ -4,16 +4,16 @@ public class MetroUserInterface {
     }
 
     private void runUserInterface(MetroMap map) {
-        map.findBestRoute("119", "112"); // maybe can store stations immediately good
-        System.out.println("gg who needs path.. that part is uncommented for now");
-//		metroMap.findBestRoute("Riverside", "Wonderland"); // kinda good
+        map.findBestRoute("119", "112"); //  good
+        System.out.println();
+        map.findBestRoute("69", "3"); //  good
+		System.out.println();
+        map.findBestRoute("69", "1"); //   good
+		System.out.println();
+		map.findBestRoute("8", "3"); //  good
+		System.out.println();
+//		metroMap.findBestRoute("Riverside", "Bowdoin");
 //		System.out.println();
-//		metroMap.findBestRoute("Riverside", "Alewife"); //  kinda good
-//		System.out.println();
-//		metroMap.findBestRoute("Riverside", "State"); // kinda good
-//		System.out.println();
-//		metroMap.findBestRoute("Riverside", "Bowdoin"); // kinda good (colors no good)
-//		System.out.println();
-//		metroMap.findBestRoute("Riverside", "BostonCollege"); //  perfect
+//		metroMap.findBestRoute("Riverside", "BostonCollege");
     }
 }

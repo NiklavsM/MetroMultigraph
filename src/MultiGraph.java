@@ -1,28 +1,25 @@
 import java.util.*;
 
-public class MultiGraph implements IMultiGraph { // Maybe graph could hold node ids..
+public class MultiGraph implements IMultiGraph {
 
-    private List<IEdge> listOfEdges = new ArrayList<>(); // make it HashSet
-    private List<INode> listOfNodes = new ArrayList<>();// make it HashSet
+    private List<IEdge> listOfEdges = new ArrayList<>(); // make it HashMap???
+    private Map<Integer, INode> mapOfNodes = new HashMap<>();
 
     public void addEdge(IEdge edge) {
         listOfEdges.add(edge);
     }
 
     public void addNode(INode node) {
-        listOfNodes.add(node);
+        mapOfNodes.put(node.getId(), node);
     }
 
     public INode getNodeById(int id) {
-        for (INode node : listOfNodes) {
-            if (node.getId() == id) {
-                return node;
-            }
-        }
-        return null;
+        return mapOfNodes.get(id);
     }
+
     public INode getNodeByName(String name) {
-        for (INode node : listOfNodes) {
+
+        for (INode node : mapOfNodes.values()) {
             if (node.getName().equals(name)) {
                 return node;
             }
@@ -31,13 +28,11 @@ public class MultiGraph implements IMultiGraph { // Maybe graph could hold node 
     }
 
     public Vector<INode> findShortestPath(INode from, INode to) {
-        boolean[] visitedNodes = new boolean[listOfNodes.size() + 1];
+        boolean[] visitedNodes = new boolean[mapOfNodes.size() + 1];
         HashMap<Integer, Vector<INode>> pathsToNodes = new HashMap<>();
-        //String[] pathsToNodes = new String[listOfNodes.size()];
         LinkedList<INode> nodesToVisit = new LinkedList<>();
 
         nodesToVisit.add(from);
-        //pathsToNodes[from.getId()] = from.getId() + " ";
         Vector<INode> vector = new Vector<>();
         vector.add(from);
         pathsToNodes.put(from.getId(), vector);
@@ -46,10 +41,6 @@ public class MultiGraph implements IMultiGraph { // Maybe graph could hold node 
                 break;
             }
         }
-//        System.out.println(Arrays.toString(pathsToNodes[to.getId()].split(" ")));
-//        String[]tempString = pathsToNodes[to.getId()].split(" ");
-
-        // return pathsToNodes[to.getId()].split(" ");
         return pathsToNodes.get(to.getId());
     }
 
@@ -60,7 +51,6 @@ public class MultiGraph implements IMultiGraph { // Maybe graph could hold node 
             if (nodeFromId == nodeToId) {
                 return true;
             } else {
-                //System.out.println("HERE 2");
                 visitedNodes[nodeFromId] = true;
                 List<INode> adjacentNodes = findAdjacentNodes(nodeFrom);
                 for (INode node : adjacentNodes) {
