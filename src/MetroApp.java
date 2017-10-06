@@ -5,10 +5,10 @@ public class MetroApp {
     public static void main(String[] args) {
         MetroMapParser mmp;
         try {
-            mmp = new MetroMapParser("bostonmetro.txt");
+            mmp = new MetroMapParser("Resources/bostonmetro.txt");
             mmp.generateMetroMapFromFile();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("System is down");
         }
     }
 

@@ -2,7 +2,7 @@ import java.util.*;
 
 public class MultiGraph implements IMultiGraph {
 
-    private List<IEdge> listOfEdges = new ArrayList<>(); // make it HashMap???
+    private List<IEdge> listOfEdges = new ArrayList<>();
     private Map<Integer, INode> mapOfNodes = new HashMap<>();
 
     public void addEdge(IEdge edge) {
@@ -17,23 +17,23 @@ public class MultiGraph implements IMultiGraph {
         return mapOfNodes.get(id);
     }
 
-    public INode getNodeByName(String name) {
-
+    public List<INode> getNodesByName(String name) {
+        List<INode> listOfNodes = new ArrayList<>();
         for (INode node : mapOfNodes.values()) {
             if (node.getName().equals(name)) {
-                return node;
+                listOfNodes.add(node);
             }
         }
-        return null;
+        return listOfNodes;
     }
 
-    public Vector<INode> findShortestPath(INode from, INode to) {
+    public List<INode> findShortestPath(INode from, INode to) {
         boolean[] visitedNodes = new boolean[mapOfNodes.size() + 1];
-        HashMap<Integer, Vector<INode>> pathsToNodes = new HashMap<>();
+        HashMap<Integer, List<INode>> pathsToNodes = new HashMap<>();
         LinkedList<INode> nodesToVisit = new LinkedList<>();
 
         nodesToVisit.add(from);
-        Vector<INode> vector = new Vector<>();
+        List<INode> vector = new LinkedList<>();
         vector.add(from);
         pathsToNodes.put(from.getId(), vector);
         while (nodesToVisit.peek() != null) {
@@ -44,7 +44,7 @@ public class MultiGraph implements IMultiGraph {
         return pathsToNodes.get(to.getId());
     }
 
-    private boolean searchBSF(INode nodeFrom, INode nodeTo, boolean[] visitedNodes, HashMap<Integer, Vector<INode>> pathsToNodes, LinkedList<INode> nodesToVisit) {
+    private boolean searchBSF(INode nodeFrom, INode nodeTo, boolean[] visitedNodes, HashMap<Integer, List<INode>> pathsToNodes, List<INode> nodesToVisit) {
         int nodeFromId = nodeFrom.getId();
         int nodeToId = nodeTo.getId();
         if (!visitedNodes[nodeFromId]) {
@@ -55,7 +55,7 @@ public class MultiGraph implements IMultiGraph {
                 List<INode> adjacentNodes = findAdjacentNodes(nodeFrom);
                 for (INode node : adjacentNodes) {
                     if (pathsToNodes.get(node.getId()) == null) {
-                        Vector<INode> vector = new Vector(pathsToNodes.get(nodeFromId));
+                        List<INode> vector = new LinkedList(pathsToNodes.get(nodeFromId));
                         vector.add(node);
                         pathsToNodes.put(node.getId(), vector);
                         nodesToVisit.add(node);

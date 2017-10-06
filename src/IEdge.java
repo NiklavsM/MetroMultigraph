@@ -1,5 +1,4 @@
 public interface IEdge {
-    public String getName();
-    public INode getFromNode();
-    public INode getToNode();
+    INode getFromNode();
+    INode getToNode();
 }

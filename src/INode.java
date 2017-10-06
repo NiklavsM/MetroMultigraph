@@ -1,5 +1,7 @@
 public interface INode {
-    public int getId();
+    int getId();
 
-    public String getName();
+    void setName(String name);
+
+    String getName();
 }

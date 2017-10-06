@@ -1,18 +1,13 @@
 
-public class MetroLink implements IEdge {
-    private String name;
+public class Link implements IEdge {
     private Station fromNode;
     private Station toNode;
 
-    public MetroLink(String linkColor, Station stationFrom, Station stationTo) {
-        this.name = linkColor;
+    public Link(Station stationFrom, Station stationTo) {
         this.fromNode = stationFrom;
         this.toNode = stationTo;
     }
 
-    public String getName() {
-        return name;
-    }
 
     public Station getFromNode() {
         return fromNode;

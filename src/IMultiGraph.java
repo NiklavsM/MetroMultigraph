@@ -1,13 +1,14 @@
-import java.util.Vector;
+import java.util.List;
 
 public interface IMultiGraph {
-    public void addNode(INode node);
+    void addNode(INode node);
 
-    public void addEdge(IEdge edge);
+    void addEdge(IEdge edge);
 
-    public Vector<INode> findShortestPath(INode from, INode to);
+    List<INode> findShortestPath(INode from, INode to);
 
-    public INode getNodeById(int id);
+    INode getNodeById(int id);
 
-    public INode getNodeByName(String name);
+    List<INode> getNodesByName(String name);
+
 }
