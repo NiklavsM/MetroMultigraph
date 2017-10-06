@@ -45,13 +45,13 @@ public class MetroMap {
             Station currentStation = getStationById(stations.get(i).getId());
             if (currentColor.equals("")) {
                 currentColor = currentStation.getStationColors().iterator().next();
-                System.out.println("At the " + currentStation.getName() + " station get on " + currentColor + " line");
+                System.out.println("At the " + currentStation.getName() + " station get on " + currentColor + " line to the direction of " + getStationById(stations.get(i + 1).getId()).getName());
             }
             Station nextStation = getStationById(stations.get(i + 1).getId());
             Station stationAfterNextStation = getStationById(stations.get(i + 2).getId());
             if (!stationAfterNextStation.hasColor(currentColor)) {
                 currentColor = findCommonColor(nextStation, stationAfterNextStation);
-                System.out.println("Change line at: \"" + nextStation.getName() + "\" switch to " + currentColor + " line.");
+                System.out.println("Change line at: \"" + nextStation.getName() + "\" switch to " + currentColor + " line to the direction of " + getStationById(stations.get(i + 1).getId()).getName());
             }
         }
         System.out.println("You have reached: " + stations.get(stations.size() - 1).getName());
