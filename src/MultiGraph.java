@@ -2,7 +2,7 @@ import java.util.*;
 
 public class MultiGraph implements IMultiGraph {
 
-    private List<IEdge> listOfEdges = new LinkedList<>();
+    private List<IEdge> listOfEdges = new ArrayList<>();
     private Map<Integer, INode> mapOfNodes = new HashMap<>();
 
     public void addEdge(IEdge edge) {
@@ -34,9 +34,9 @@ public class MultiGraph implements IMultiGraph {
         Queue<INode> nodesToVisit = new LinkedList<>();
 
         nodesToVisit.add(from);
-        List<INode> vector = new LinkedList<>();
-        vector.add(from);
-        pathsToNodes.put(from.getId(), vector);
+        List<INode> nodesList = new LinkedList<>();
+        nodesList.add(from);
+        pathsToNodes.put(from.getId(), nodesList);
         while (nodesToVisit.peek() != null) {
             if (searchBSF(nodesToVisit.poll(), to, visitedNodes, pathsToNodes, nodesToVisit)) {
                 break;
