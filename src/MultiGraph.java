@@ -2,7 +2,7 @@ import java.util.*;
 
 public class MultiGraph implements IMultiGraph {
 
-    private List<IEdge> listOfEdges = new ArrayList<>();
+    private List<IEdge> listOfEdges = new LinkedList<>();
     private Map<Integer, INode> mapOfNodes = new HashMap<>();
 
     public void addEdge(IEdge edge) {

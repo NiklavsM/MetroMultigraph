@@ -68,7 +68,7 @@ public class MetroMap {
         return "";
     }
 
-    private Station getStationById(int id) {
+    public Station getStationById(int id) {
         return (Station) metroSystem.getNodeById(id);
     }
 

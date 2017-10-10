@@ -53,6 +53,9 @@ public class MetroUserInterface {
             stationFrom = inputScanner.nextLine();
             if (stationFrom.matches("\\d+")) {
                 stationFromId = new Integer(stationFrom);
+                if (metroMap.getStationById(stationFromId)== null){
+                    getStationFrom();
+                }
             } else getStationFrom();
         }
     }
@@ -81,6 +84,9 @@ public class MetroUserInterface {
             stationTo = inputScanner.nextLine();
             if (stationTo.matches("\\d+")) {
                 stationToId = new Integer(stationTo);
+                if (metroMap.getStationById(stationToId)== null){
+                    getStationTo();
+                }
             } else getStationTo();
         }
     }
