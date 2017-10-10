@@ -31,7 +31,7 @@ public class MultiGraph implements IMultiGraph {
     public List<INode> findShortestPath(INode from, INode to) {
         boolean[] visitedNodes = new boolean[mapOfNodes.size() + 1];
         HashMap<Integer, List<INode>> pathsToNodes = new HashMap<>();
-        LinkedList<INode> nodesToVisit = new LinkedList<>();
+        Queue<INode> nodesToVisit = new LinkedList<>();
 
         nodesToVisit.add(from);
         List<INode> vector = new LinkedList<>();
@@ -45,7 +45,7 @@ public class MultiGraph implements IMultiGraph {
         return pathsToNodes.get(to.getId());
     }
 
-    private boolean searchBSF(INode nodeFrom, INode nodeTo, boolean[] visitedNodes, HashMap<Integer, List<INode>> pathsToNodes, List<INode> nodesToVisit) {
+    private boolean searchBSF(INode nodeFrom, INode nodeTo, boolean[] visitedNodes, HashMap<Integer, List<INode>> pathsToNodes, Queue<INode> nodesToVisit) {
         int nodeFromId = nodeFrom.getId();
         int nodeToId = nodeTo.getId();
         if (!visitedNodes[nodeFromId]) {
