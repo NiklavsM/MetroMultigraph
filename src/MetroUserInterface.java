@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.SortedMap;
 
 public class MetroUserInterface {
     private MetroMap metroMap;
@@ -34,6 +35,17 @@ public class MetroUserInterface {
         System.out.println("Please type in the station from");
         stationFrom = inputScanner.nextLine();
         stations = metroMap.getStationsByName(stationFrom);
+        String userInput = stationFrom.toLowerCase();
+
+
+        if(userInput.contains("exit")){
+
+            System.out.println("Program ending.");
+            System.exit(1);
+
+        }
+
+
         if (stations.size() == 0) {
             System.out.println(stationFrom + " does not exist, please type in existing station");
             getStationFrom();
@@ -57,6 +69,16 @@ public class MetroUserInterface {
         System.out.println("Please type in the station to");
         stationTo = inputScanner.nextLine();
         stations = metroMap.getStationsByName(stationTo);
+        String userInput = stationTo.toLowerCase();
+
+        if(userInput.contains("exit")){
+
+            System.out.println("Program ending.");
+            System.exit(1);
+
+        }
+
+
         if (stations.size() == 0) {
             System.out.println(stationTo + " does not exist, please type in existing station");
             getStationTo();
