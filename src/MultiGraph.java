@@ -18,9 +18,10 @@ public class MultiGraph implements IMultiGraph {
     }
 
     public List<INode> getNodesByName(String name) {
+        String nameN = name.toLowerCase();
         List<INode> listOfNodes = new ArrayList<>();
         for (INode node : mapOfNodes.values()) {
-            if (node.getName().equals(name)) {
+            if (node.getName().toLowerCase().equals(nameN)) {
                 listOfNodes.add(node);
             }
         }

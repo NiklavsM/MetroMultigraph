@@ -31,20 +31,14 @@ public class MetroUserInterface {
 
     private void getStationFrom() {
         List<Station> stations;
-        String stationFrom;
         System.out.println("Please type in the station from");
-        stationFrom = inputScanner.nextLine();
+        String stationFrom = inputScanner.nextLine().toLowerCase();
         stations = metroMap.getStationsByName(stationFrom);
-        String userInput = stationFrom.toLowerCase();
 
-
-        if(userInput.contains("exit")){
-
+        if(stationFrom.contains("exit")){
             System.out.println("Program ending.");
             System.exit(1);
-
         }
-
 
         if (stations.size() == 0) {
             System.out.println(stationFrom + " does not exist, please type in existing station");
@@ -65,19 +59,14 @@ public class MetroUserInterface {
 
     private void getStationTo() {
         List<Station> stations;
-        String stationTo;
         System.out.println("Please type in the station to");
-        stationTo = inputScanner.nextLine();
+        String stationTo = inputScanner.nextLine().toLowerCase();
         stations = metroMap.getStationsByName(stationTo);
-        String userInput = stationTo.toLowerCase();
 
-        if(userInput.contains("exit")){
-
+        if(stationTo.contains("exit")){
             System.out.println("Program ending.");
             System.exit(1);
-
         }
-
 
         if (stations.size() == 0) {
             System.out.println(stationTo + " does not exist, please type in existing station");
